@@ -1,0 +1,25 @@
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+dist/
+build/
+
+# Audio temp files
+tmp/
+temp/
+*.wav
+*.mp3
+*.ogg
+*.flac
+
+# Environment
+.env
