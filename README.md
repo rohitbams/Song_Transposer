@@ -4,39 +4,33 @@ A full-stack web application that downloads audio from YouTube, detects its musi
 
 ## Features
 
-- YouTube audio download using yt-dlp
-
-- Automatic musical key detection using a Krumhansl–Schmuckler–based algorithm
-
+- YouTube audio download using **yt-dlp**
+- Automatic musical key detection using a [Krumhansl–Schmuckler–based algorithm](https://rnhart.net/articles/key-finding/)
 - Pitch-shifting / audio transposition using librosa
-
-- Frontend interface for inputting a YouTube link, detecting key, selecting a target key, and downloading the transposed audio
+- Simple UI for:
+    - entering a YouTube url
+    - detecting key
+    - selecting a new key
+    - downloading the transposed audio
 - Temporary storage of downloaded and processed audio files
-
 - CORS-enabled FastAPI server
-
-- Clean separation of backend services and frontend UI
+- Clean modular separation of services and UI
 
 ## Tech Stack
-###Frontend
+### Frontend
 
 - React (Vite)
-
-- Axios for HTTP requests
+- Axios
 
 ## Backend
 
 - FastAPI
-
 - Python 3.12
+- yt-dlp
+- librosa, numpy, scipy
 
-- yt-dlp for audio extraction
+## Project Structure
 
-- librosa, numpy, scipy for DSP processing
-
-- Custom Krumhansl–Schmuckler key detection implementation
-
-##Project Structure
 ```
 Song_Transposer/
 │
@@ -50,6 +44,7 @@ Song_Transposer/
 │   │   ├── utils/
 │   │   │   ├── youtube.py
 │   │   ├── main.py
+│   ├── requirements.txt
 │
 ├── frontend/
 │   ├── src/
@@ -58,66 +53,69 @@ Song_Transposer/
 │   │   ├── main.jsx
 │   ├── package.json
 │
-├── .gitignore
 └── README.md
 ```
 
 ## Backend Setup
-1. Create a Python virtual environment
+
+1. Create and activate a virtual environment
 ```bash
 cd backend
 python3 -m venv venv
 source venv/bin/activate
 ```
-
+Windows
+```cmd
+venv\Script\activate
+```
 2. Install backend dependencies
 ```bash
 pip install -r requirements.txt
 ```
-3. Run the FastAPI server
+3. Install ffmpeg
+macOS
+```bash
+brew install ffmpeg
+```
+Ubuntu / Debian
+```bash
+sudp apt install ffmpeg
+```
+Windows
+Download from: https://ffmpeg.org/download.html and add to PATH.
+4. Start the FastAPI server
 ```bash
 uvicorn app.main:app --reload
 ```
-
 The backend will be available at:
-
 http://127.0.0.1:8000
 
 ## Frontend Setup
+
 1. Install dependencies
 ```bash
 cd frontend
 npm install
 ```
-
 2. Start development server
 ```bash
 npm run dev
 ```
-
 The frontend will be available at:
-
 http://127.0.0.1:5173
 
 ## How to Use
 
 - Open the frontend in your browser.
-
 - Enter any YouTube video URL containing music.
-
-- Click Download Audio to fetch the MP3.
-
-- Click Analyse Key to automatically detect the musical key.
-
+- Click Download Audio.
+- Click Analyse Key to detect the musical key.
 - Choose your target key from the dropdown.
-
 - Click Transpose to generate a pitch-shifted version.
-
-- Download the processed audio via the provided link.
+- Download the processed audio.
 
 ## Notes
 
-Audio files are stored temporarily in /tmp/ytdl_audio.
-
-.gitignore excludes virtual environments, Node modules, caches, and temporary audio.
-
+- Audio files are stored temporarily in a system temp directory (e.g., `/tmp/ytdl_audio` on macOS/Linux; on Windows a platform-appropriate temp directory is used).
+- The .gitignore excludes virtual environments, node_modules, caches, and temporary audio files.
+- This project is cross-platform (macOS, Linux, Windows), but Windows users must install ffmpeg manually and activate the venv using `venv\Scripts\activate`
