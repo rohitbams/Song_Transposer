@@ -3,7 +3,7 @@ import soundfile as sf
 import os
 import uuid
 
-KEYS_MAJOR = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+KEYS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 def transpose_audio(file_path: str, original_key: str, target_key: str):
     """
@@ -16,8 +16,8 @@ def transpose_audio(file_path: str, original_key: str, target_key: str):
 
     # Calculate semitone shift
     try:
-        orig_idx = KEYS_MAJOR.index(original_key)
-        target_idx = KEYS_MAJOR.index(target_key)
+        orig_idx = KEYS.index(original_key)
+        target_idx = KEYS.index(target_key)
     except ValueError:
         raise ValueError("Invalid key name. Use standard keys: C, C#, D, ...")
 

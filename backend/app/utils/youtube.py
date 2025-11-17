@@ -8,6 +8,7 @@ def download_youtube_audio(url: str) -> str:
     Returns the full path to the downloaded audio file.
     """
 
+    # make directory
     output_dir = "/tmp/ytdl_audio"
     os.makedirs(output_dir, exist_ok=True)
 
@@ -15,12 +16,13 @@ def download_youtube_audio(url: str) -> str:
     file_id = uuid.uuid4().hex
     output_template = f"{output_dir}/{file_id}.%(ext)s"
 
+    # select yt-dlp options
     ydl_opts = {
         "format": "bestaudio/best",
         "outtmpl": output_template,
         "quiet": True,
         "no_warnings": True,
-        "postprocessors": [{
+        "postprocessors": [{  # use FFmpeg to convert to mp3
             "key": "FFmpegExtractAudio",
             "preferredcodec": "mp3",
             "preferredquality": "192",
