@@ -37,7 +37,7 @@ A full-stack web application that downloads audio from YouTube, detects its musi
 - Custom Krumhansl–Schmuckler key detection implementation
 
 ##Project Structure
-
+```
 Song_Transposer/
 │
 ├── backend/
@@ -60,6 +60,7 @@ Song_Transposer/
 │
 ├── .gitignore
 └── README.md
+```
 
 ## Backend Setup
 1. Create a Python virtual environment
